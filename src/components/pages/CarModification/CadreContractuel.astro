@@ -1,0 +1,143 @@
+---
+// CadreContractuel.astro
+
+import ContractHammer from "../../SVG/ContractHammer.astro";
+
+const leftBackgroundColor = "#0066B1";
+const rightBackgroundColor = "#F1F9FC";
+const iconPath = "../../../components/SVG/ContractHammer.astro";
+---
+
+<style>
+  .cadre-contractuel {
+    display: flex;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-color: var(--right-background-color);
+    max-width: 1240px;
+  }
+
+  .left-side {
+    background-color: var(--left-background-color);
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+  }
+
+  .left-side .icon {
+    margin-right: 1rem;
+  }
+
+  .left-side .text {
+    color: #fff;
+    font-weight: bold;
+    padding-left: 10px;
+  }
+
+  .arrow {
+    display: flex;
+    width: 33px;
+    flex-shrink: 0;
+  }
+
+  .arrow-mobile {
+    display: none;
+  }
+
+  .fill-color {
+    fill: var(--left-background-color);
+    width: 100%;
+    height: 100%;
+  }
+
+  .right-side {
+    padding: 1rem 2rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    width: 70%;
+  }
+
+  .right-side .texte {
+    font-size: 1rem;
+    color: #000;
+  }
+
+  .right-side .texte b {
+    font-weight: bold;
+  }
+
+  @media (max-width: 639px) {
+    .cadre-contractuel {
+      flex-direction: column;
+      max-height: unset;
+      align-items: flex-start;
+    }
+
+    .left-side {
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .left-side .icon svg {
+      width: 53px;
+      height: 50px;
+    }
+
+    .arrow {
+      display: none;
+    }
+
+    .arrow-mobile {
+      display: flex;
+      width: 100%;
+      height: 33px;
+    }
+
+    .right-side {
+      width: 100%;
+      padding: 2rem 1rem;
+    }
+  }
+</style>
+
+<div
+  class="cadre-contractuel"
+  style={`--left-background-color: ${leftBackgroundColor}; --right-background-color: ${rightBackgroundColor}`}
+>
+  <div class="left-side">
+    <div class="icon">
+      <ContractHammer slot="icon"/>
+    </div>
+    <div class="text">CADRE<br /> CONTRACTUEL</div>
+  </div>
+  <div class="arrow">
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 30 100"
+      preserveAspectRatio="none"
+      class="fill-color"
+    >
+      <polygon points="0,0 30,50 0,100"></polygon>
+    </svg>
+  </div>
+  <div class="arrow-mobile">
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 30"
+      preserveAspectRatio="none"
+      class="fill-color"
+    >
+      <polygon points="0,0 50,30 100,0"></polygon>
+    </svg>
+  </div>
+  <div class="right-side">
+    <div class="texte">
+      <slot />
+    </div>
+  </div>
+</div>

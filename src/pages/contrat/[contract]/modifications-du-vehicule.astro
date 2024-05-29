@@ -1,0 +1,128 @@
+---
+import type { Props } from "astro";
+import type { ContractInfo } from "../../../typings";
+import { contracts, PAGE_MODIFICATION_DU_VEHICULE } from "../../../contracts";
+import Page from "../../../layouts/Page.astro";
+import ModificationDuVehiculeBackground from "../../../assets/images/modification_du_vehicule_background.jpg";
+import ModificationDuVehiculeBackgroundMobile from "../../../assets/images/modification_du_vehicule_background_mobile.jpg";
+import PageHeader from "../../../components/PageHeader.astro";
+import CarModif from "../../../components/SVG/CarModif.astro";
+import Section from "../../../components/Section.astro";
+import SectionTitle from "../../../components/SectionTitle.astro";
+import Paragraph from "../../../components/Paragraph.astro";
+import CadreContractuel from "../../../components/pages/CarModification/CadreContractuel.astro";
+import { resolveStaticPathsForPage } from "../../../utils";
+
+export const getStaticPaths = () =>
+  resolveStaticPathsForPage(PAGE_MODIFICATION_DU_VEHICULE);
+
+interface AvantagesProps extends Props {
+  contract: ContractInfo;
+}
+
+const { contract } = Astro.props as AvantagesProps;
+
+const item = {
+  title: SectionTitle,
+};
+
+
+---
+
+<Page
+  title="Modifications du véhicule"
+  contract={contract}
+  page={PAGE_MODIFICATION_DU_VEHICULE}
+>
+  <PageHeader
+    slot="header"
+    contract={contract}
+    currentUrl={`/contrat/${contract.path}/modification-du-vehicule`}
+    imageSrc={ModificationDuVehiculeBackground}
+    mobileImageSrc={ModificationDuVehiculeBackgroundMobile}
+    imageAlt="Modifications du véhicule"
+    title={contract.cosyName}
+    subTitle="Modifications du véhicule"
+    menuUrl={`/contrat/${contract.path}`}
+  >
+    <CarModif slot="icon" class="w-8 h-auto" />
+  </PageHeader>
+  <Section noBorder>
+    <SectionTitle>
+      1. RETARD OU NON-RESPECT DES ENTRETIENS ET RÉPARATIONS DU VÉHICULE.
+    </SectionTitle>
+    <Paragraph>
+      Les conséquences directes peuvent aller jusqu'à la fin de la garantie du
+      constructeur, des pannes, ainsi qu'une résiliation du contrat de location.
+      Des frais supplémentaires peuvent également être facturés lorsque le
+      véhicule est restitué (voir point n°2).
+    </Paragraph>
+    <CadreContractuel
+      >Si le locataire ne suit pas les directives d'entretien du véhicule, il
+      peut être passible d'une <span class="font-bold"
+        >pénalité financière du montant défini dans les conditions générales de
+        la location pouvant aller jusqu'à 2700€</span
+      >. En plus de cette pénalité, le bailleur pourrait réclamer le paiement
+      des réparations ou de l'entretien que le locataire n'a pas effectué.</CadreContractuel
+    >
+  </Section>
+
+  <Section noBorder>
+    <SectionTitle>
+      2. MODIFICATION DES SPÉCIFICATIONS TECHNIQUES DU VÉHICULE.
+    </SectionTitle>
+    <Paragraph>
+      <span class="font-bold"
+        >Le locataire ne doit apporter aucune modification aux spécifications
+        techniques ou de nature à modifier le certificat de conformité</span
+      > délivré par l'administration ou encore toutes normes du constructeur automobile.
+    </Paragraph>
+    <Paragraph>
+      En cas de modification apportée au véhicule, son homologation n'est plus
+      valide. Les conséquences immédiates sont l'interdiction de la circulation
+      sur la voie publique, conformément au Code de la Route, et l'invalidité de
+      la Police d'assurance.
+    </Paragraph>
+    <Paragraph>
+      De plus, les conséquences peuvent être similaires à celles du non-respect
+      de l'entretien : déchéance de garantie, des pannes ainsi que la
+      résiliation du contrat de location.
+    </Paragraph>
+    <Paragraph>
+      Des frais supplémentaires peuvent également être facturés lorsque le
+      véhicule est restitué pouvant aller <span class="font-bold"
+        >jusqu'à une pénalité de 10%</span
+      > du prix catalogue du véhicule.
+    </Paragraph>
+    <CadreContractuel
+      ><span class="font-bold"
+        >Le contrat stipule explicitement que le locataire ne doit pas apporter
+        de modifications</span
+      > qui pourraient remettre en cause le certificat de conformité du véhicule.</CadreContractuel
+    >
+  </Section>
+
+  <Section noBorder>
+    <SectionTitle>
+      3. L’AJOUT OU LA SUPPRESSION D’ACCESSOIRES ET ÉQUIPEMENTS.
+    </SectionTitle>
+    <Paragraph>
+      <span class="font-bold"
+        >Tout ajout ou suppression d’accessoires sera facturé au moment de la
+        restitution du véhicule.</span
+      >
+    </Paragraph>
+    <Paragraph>
+      Des frais supplémentaires peuvent également être facturés lorsque le
+      véhicule est restitué pouvant aller jusqu’à la refacturation de
+      l’accessoire ou de l’équipement manquant ainsi que les coûts de main
+      d’œuvre associés.
+    </Paragraph>
+    <CadreContractuel
+      ><span class="font-bold"
+        >Le véhicule doit être restitué dans son état d'origine</span
+      >, y compris avec les accessoires.<br /> Toute modification doit être approuvée
+      par BMW Finance avant d'être effectuée.</CadreContractuel
+    >
+  </Section>
+</Page>

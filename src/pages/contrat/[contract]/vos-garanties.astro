@@ -1,0 +1,277 @@
+---
+import PageHeader from "../../../components/PageHeader.astro";
+import Page from "../../../layouts/Page.astro";
+import garantiesBackground from "../../../assets/images/garanties_background.jpg";
+import garantiesBackgroundMobile from "../../../assets/images/garanties_background_mobile.jpg";
+
+import type { Props } from "astro";
+import { contracts, PAGE_VOS_GARANTIES } from "../../../contracts";
+import type { ContractInfo } from "../../../typings";
+import Umbrella from "../../../components/SVG/Umbrella.astro";
+import Cross from "../../../components/SVG/Cross.astro";
+import Check from "../../../components/SVG/Check.astro";
+import Section from "../../../components/Section.astro";
+import TabMenu, { TabItem } from "../../../components/TabMenu";
+import SectionTitle from "../../../components/SectionTitle.astro";
+import SectionSubTitle from "../../../components/SectionSubTitle.astro";
+import Paragraph from "../../../components/Paragraph.astro";
+import renouvellementImg from "../../../assets/images/renouvellement.jpg";
+import { Picture } from "@astrojs/image/components";
+import TableRow from "../../../components/pages/Garanties/TableRow.astro";
+import SpeedMeters from "../../../components/pages/Services/SpeedMeters";
+import peopleSmileImg from "../../../assets/images/people_smile.jpg";
+import { resolveStaticPathsForPage } from "../../../utils";
+
+export const getStaticPaths = () => resolveStaticPathsForPage(PAGE_VOS_GARANTIES)
+
+
+interface AvantagesProps extends Props {
+    contract: ContractInfo
+}
+
+const { contract } = Astro.props as AvantagesProps;
+
+const tabItems: TabItem[] = [
+    { title: "Garantie valeur d'achat", key: "GVA" },
+    { title: "Garantie perte financière", key: "GPF" },
+]
+
+if (contract.name === "LOA" || contract.name === "PassLease LOA") {
+    tabItems.push({
+        title: "Garantie personnelle",
+        key: "GP"
+    })
+}
+
+if (contract.name === "Crédit" || contract.name === "Crédit Ballon") {
+    tabItems.push({
+        title: "Protection personnelle",
+        key: "GP"
+    })
+}
+
+---
+
+<Page title="Vos garanties" contract={contract} page={PAGE_VOS_GARANTIES}>
+    <PageHeader
+        slot="header"
+        contract={contract}
+        currentUrl={`/contrat/${contract.path}/vos-garanties`}
+        imageSrc={garantiesBackground}
+        mobileImageSrc={garantiesBackgroundMobile}
+        imageAlt="Vos garanties"
+        imagePosition="top"
+        title={contract.cosyName}
+        subTitle="Vos garanties"
+        menuUrl={`/contrat/${contract.path}`}
+    >
+        <Umbrella slot="icon" class="w-8 h-auto" />
+    </PageHeader>
+        <TabMenu
+            client:visible
+            items={tabItems}
+            initialKey="GVA"
+        >
+                <div slot="GVA" class="w-full">
+                    <Section>
+                        <SectionTitle>{"Garantie valeur d'achat"}</SectionTitle>
+                        <SectionSubTitle>{"un complément d'indemnisation jusqu'à la valeur d'achat du véhicule."}</SectionSubTitle>
+                        <Paragraph>
+                            Pendant une durée de couverture que vous choisissez (36, 48 ou 60 mois), en cas de vol ou de destruction totale de votre véhicule, nous vous remboursons :​
+                            <br><br>
+                            • la <span class="font-bold">franchise</span> de votre assureur principal<br>
+                            • la différence entre :​<br>
+                            - la valeur d’achat (MALUS écologiques exclus)​ <br>
+                            - et la valeur la plus élevée entre l’indemnité de l’assureur principal et la valeur​ économique à dire d’expert.​<br>
+                        </Paragraph>
+                        <Paragraph last>
+                            Au-delà de cette durée de couverture ​et jusqu’à la fin du financement, ​vous bénéficiez d’un remboursement plafonné à​ 40% de la valeur d’achat 
+                            dans la limite de 40 000€.​​
+                        </Paragraph>
+                    </Section>
+                    <Section>
+                        <SectionSubTitle>{"votre mobilité garantie."}</SectionSubTitle>
+                        <Paragraph last>
+                            Un véhicule de remplacement (catégorie C) : jusqu’à 20 jours en cas de perte totale, jusqu’à 40 jours en cas de vol.
+                        </Paragraph>
+                    </Section>
+                    <Section noBorder>
+                        <div class="flex flex-col md:flex-row items-stretch space-y-8 md:space-x-8 md:space-y-0">
+                            <div class="flex-1 flex flex-col">
+                                <SectionSubTitle>{"votre avantage renouvellement."}</SectionSubTitle>
+                                <Paragraph last>
+                                    En cas de renouvellement et financement d’un véhicule neuf de la marque suite à un vol ou une perte totale :​
+                                    <br><br>
+                                    • <span class="font-bold">Votre indemnisation est augmentée de 10%</span> si le sinistre intervient pendant 
+                                    la durée de couverture de votre garantie.​
+                                    <br><br>
+                                    • Vous disposez d’un véhicule de remplacement jusqu’à 90 jours.​
+                                    <br><br>
+                                    Au-delà de cette durée, le plafond de remboursement de la <span class="font-bold">valeur d’achat 
+                                    est augmenté à 52%</span> dans la limite de 52 000€.​
+                                </Paragraph>
+                            </div>
+                            <Picture
+                                src={renouvellementImg}
+                                fill="cover"
+                                alt="couple qui sourit"
+                                sizes="(min-width: 768px) 40vw, 100vw"
+                                widths={[420, 520, 720]}
+                                aspectRatio="719:414"
+                            />
+                        </div>
+                    </Section>
+                </div>
+                <div slot="GPF" class="w-full">
+                    <Section>
+                        <SectionTitle>{"Garantie perte financière"}</SectionTitle>
+                        <SectionSubTitle>{"un complément d'indemnisation jusqu'au solde de votre financement."}</SectionSubTitle>
+                        <Paragraph last>
+                            Pendant une durée de couverture que vous choisissez (36, 48 ou 60 mois), en cas de vol ou de destruction totale de votre véhicule, nous vous remboursons :​
+                            <br><br>
+                            • La franchise de votre assureur principal​
+                            <br><br>
+                            • La différence entre :​<br>
+                            - le solde* de financement en cours​<br>
+                            - et la valeur la plus élevée entre l’indemnité de votre assureur principal et la valeur​ économique à dire d’expert.​
+                            <br><br>
+                            • Durée de la garantie : durée du financement​
+                            <br><br>
+                            • Type de financement : crédit ou LOA, apport inférieur à 20%​
+                        </Paragraph>
+                    </Section>
+                    <div class="sm:px-16">
+                        <table class="w-full mb-10">
+                            <thead>
+                                <tr>
+                                    <th class="w-auto"></th>
+                                    <th class="text-xs text-bold text-center sm:p-4 uppercase w-[30%] sm:w-[22.7%]">
+                                        SANS ASSURANCE
+                                    </th>
+                                    <th class="text-xs text-bold text-center sm:p-4 uppercase w-[30%] sm:w-[22.7%]">
+                                        Garantie<br> PERTE FINAncière*
+                                    </th>
+                                    <th class="text-xs text-bold text-center text-bmw-blue sm:p-4 uppercase w-[30%] sm:w-[22.7%]">
+                                        Garantie<br> valeur d'achat*
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <TableRow>
+                                    <span slot="text">
+                                        Solde du financement et valeur
+                                        économique à dire d’expert
+                                        <br>ou<br>
+                                        Solde du financement et indemnité
+                                        de votre assureur principal
+                                    </span>
+                                    <Cross slot="WI" class="w-6 sm:w-12 h-auto" />
+                                    <Check slot="GVA"class="w-6 sm:w-12 h-auto" />
+                                    <Cross slot="GPF" class="w-6 sm:w-12 h-auto" />
+                                </TableRow>
+                                <TableRow>
+                                    <span slot="text">
+                                        Valeur d’achat et valeur économique
+                                        à dire d’expert
+                                        <br>ou<br>
+                                        Valeur d’achat et indemnité de votre
+                                        assureur principal
+                                    </span>
+                                    <Cross slot="WI" class="w-6 sm:w-12 h-auto" />
+                                    <Cross slot="GVA"class="w-6 sm:w-12 h-auto" />
+                                    <Check slot="GPF" class="w-6 sm:w-12 h-auto" />
+                                </TableRow>
+                                <TableRow>
+                                    <span slot="text">
+                                        Durée de couverture de la garantie
+                                    </span>
+                                    <Cross slot="WI" class="w-6 sm:w-12 h-auto" />
+                                    <div slot="GVA" class="flex flex-col justify-center items-center">
+                                        <Cross class="w-6 sm:w-12 h-auto" />
+                                        <span class="mt-4">Durée du financement</span>
+                                    </div>
+                                    <div slot="GPF" class="flex flex-col justify-center items-center">
+                                        <Check class="w-6 sm:w-12 h-auto" />
+                                        <span class="mt-4">36, 48 ou 60 mois</span>
+                                    </div>  
+                                </TableRow>
+                                <TableRow>
+                                    <span slot="text">
+                                        Plafond de remboursement au-delà de la durée choisie
+                                        <br>(36, 48 ou 60 mois) :
+                                    </span>
+                                    <Cross slot="WI" class="w-6 sm:w-12 h-auto" />
+                                    <Cross slot="GVA"class="w-6 sm:w-12 h-auto" />
+                                    <div slot="GPF" class="flex flex-col justify-center items-center">
+                                        <Check class="w-6 sm:w-12 h-auto" />
+                                        <span class="mt-4">40% dans la limite de 40 000 €</span>
+                                    </div> 
+                                </TableRow>
+                                <TableRow>
+                                    <span slot="text">
+                                        Avantage si renouvellement par un véhicule neuf ou d’occasion :	
+                                    </span>
+                                    <Cross slot="WI" class="w-6 sm:w-12 h-auto" />
+                                    <Cross slot="GVA"class="w-6 sm:w-12 h-auto" />
+                                    <div slot="GPF" class="flex flex-col justify-center items-center text-center">
+                                        <Check class="w-6 sm:w-12 h-auto" />
+                                        <span class="mt-4">
+                                            Remboursement augmenté de 10% ou plafond de remboursement augmenté à 52% dans la limite de 52 000 €
+                                        </span>
+                                    </div> 
+                                </TableRow>
+                                <TableRow>
+                                    <span slot="text">
+                                        Assistance (2) - Véhicule de remplacement
+                                        <br>
+                                        (Cat. C)	
+                                    </span>
+                                    <Cross slot="WI" class="w-6 sm:w-12 h-auto" />
+                                    <Cross slot="GVA"class="w-6 sm:w-12 h-auto" />
+                                    <Check slot="GPF"class="w-6 sm:w-12 h-auto" />
+                                </TableRow>
+                                <TableRow noBorder>
+                                    <span slot="text">
+                                        Évènements familiaux
+                                    </span>
+                                    <Cross slot="WI" class="w-6 sm:w-12 h-auto" />
+                                    <Cross slot="GVA"class="w-6 sm:w-12 h-auto" />
+                                    <Check slot="GPF"class="w-6 sm:w-12 h-auto" />
+                                </TableRow>
+                            </tbody>
+                        </table>
+                        <p class="text-sm font-light">
+                            *Voir les Mentions Légales.<br>
+                        </p>
+                    </div>
+                </div>
+                <div slot="GP" class="w-full">
+                    <Section noBorder>
+                        <div class="flex flex-col md:flex-row items-stretch space-y-8 md:space-x-8 md:space-y-0">
+                            <div class="flex-1 flex flex-col">
+                                <SectionTitle>
+                                    La protection personnelle DI+*.
+                                    <span slot="subtitle">protégez vos intérêts et ceux de vos proches en cas de décès.</span>
+                                </SectionTitle>
+                                <Paragraph>
+                                    Si vous avez souscrit à l'assurance <span class="font-bold">Décès-Perte Totale et Irréversible d'Autonomie (DI+)</span>,
+                                    celle-ci est la solution qui veille sur vous et votre famille, en cas d'accident de la vie.
+                                    Elle protège vos proches en leur laissant la jouissance de votre BMW en les dégageant
+                                    intégralement du financement que vous aurez engagé.
+                                </Paragraph>
+                                <SpeedMeters client:visible />
+                            </div>
+                            <Picture
+                                src={peopleSmileImg}
+                                class="hidden md:block"
+                                fill="cover"
+                                alt="couple qui sourit"
+                                sizes="(min-width: 768px) 40vw, 100vw"
+                                widths={[400, 500, 690]}
+                                aspectRatio="690:553"
+                            />
+                        </div>
+                    </Section>
+                </div>
+        </TabMenu>
+</Page>

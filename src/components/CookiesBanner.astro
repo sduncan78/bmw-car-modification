@@ -1,0 +1,101 @@
+<div class="CookiesBanner">
+    <span class="CookiesBanner__title">Consentement aux cookies</span>
+    <p class="CookiesBanner__text">Nous utilisons des cookies, y compris des cookies tiers, pour recueillir des informations sur la façon dont les visiteurs utilisent nos sites Web. Ils nous aident à vous proposer la meilleure expérience possible, à améliorer continuellement nos sites et à fournir des offres adaptées à vos centres d’intérêt. En cliquant sur le bouton «&nbsp;Tout accepter&nbsp;», vous acceptez l’utilisation de ces cookies. Vous pouvez retirer votre consentement à tout moment, modifier vos préférences et obtenir des informations détaillées sur notre utilisation des cookies en cliquant sur «&nbsp;En savoir plus&nbsp;».</p>
+
+    <div class="CookiesBanner__details">
+      <div class="CookiesBanner__details_section">
+        <span class="CookiesBanner__details_section_title"> OBLIGATOIRES </span>
+
+        <div class="CookiesBanner__cookie">
+          <div class="CookiesBanner__cookie__icon_container">
+            <img alt="icon cookie" class="CookiesBanner__cookie__icon" src="https://bmw-financial.slgnt.eu/images/SMC/gear-icon.png">
+          </div>
+
+          <div class="CookiesBanner__cookie__infos">
+            <span class="CookiesBanner__cookie__name">Cookies fonctionnels</span>
+
+            <p class="CookiesBanner__cookie__desc">Les cookies fonctionnels sont nécéssaires au fonctionnement du site.</p>
+          </div>
+          <input checked="checked" class="CookiesBanner__cookie__checkbox" disabled="disabled" name="functionnals" type="checkbox">
+        </div>
+      </div>
+    </div>
+
+    <div class="CookiesBanner__actions">
+      <a class="CookiesBanner__know_more_link" href="#">En savoir plus</a>
+
+      <div>
+        <button class="CookiesBanner__button CookiesBanner__button-decline_all">REFUSER TOUT</button><button class="CookiesBanner__button CookiesBanner__button-accept_all">ACCEPTER TOUT</button><button class="CookiesBanner__button CookiesBanner__button-accept_selected CookiesBanner__button-hide">ACCEPTER SÉLÉCTIONNÉS</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+    const COOKIE_BANNER_DELAY = 1000;
+    const $banner = document.querySelector(".CookiesBanner")!;
+    const $details = document.querySelector(".CookiesBanner__details")!;
+    const $knowMoreBtn = document.querySelector(".CookiesBanner__know_more_link")!;
+    const $acceptAllBtn = $banner.querySelector(".CookiesBanner__button-accept_all")!;
+    const $acceptSelectedBtn = $banner.querySelector(".CookiesBanner__button-accept_selected")!;
+    const $declineAllBtn = $banner.querySelector(".CookiesBanner__button-decline_all")!;
+    const $cookies = $banner.querySelectorAll(".CookiesBanner__cookie")!;
+    let showDetails = false;
+
+    const ls = localStorage.getItem("cookies");
+    if (!ls) {
+        setTimeout(function() {
+            $banner.classList.add("CookiesBanner-show");
+        }, COOKIE_BANNER_DELAY);
+    }
+    function toggleDetails() {
+        showDetails = !showDetails;
+        $knowMoreBtn!.innerHTML = showDetails ? "Masquer le détail" : "En savoir plus";
+        $acceptSelectedBtn!.classList[showDetails ? "remove" : "add"]("CookiesBanner__button-hide");
+        $details.classList[showDetails ? "add" : "remove"]("CookiesBanner__details-show");
+    }
+    $knowMoreBtn.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        toggleDetails();
+    });
+    $cookies.forEach(function($cookie) {
+        $cookie.addEventListener("click", function(ev) {
+            ev.preventDefault();
+            const cookieName = $cookie.getAttribute("data-cookie-name");
+            if (cookieName) {
+                const $checkbox = $cookie.querySelector("input")!;
+                $checkbox.checked = !$checkbox.checked;
+            }
+        });
+    });
+    function createEventDispatcher($button, eventName, insertCookies = false) {
+        $button.addEventListener("click", function(ev) {
+            ev.preventDefault();
+            if (showDetails) toggleDetails();
+            $banner.classList.remove("CookiesBanner-show");
+            const detail = {
+                $banner
+            };
+            if (insertCookies) detail.cookies = getAcceptedCookies();
+            window.dispatchEvent(new CustomEvent(eventName, {
+                detail
+            }));
+        });
+    }
+    function getAcceptedCookies() {
+        const selected : string[] = [];
+        $cookies.forEach(function($cookie) {
+            const cookieName = $cookie.getAttribute("data-cookie-name");
+            if (cookieName) {
+                const $checkbox = $cookie.querySelector("input")!;
+                if ($checkbox.checked) selected.push(cookieName);
+            }
+        });
+        return selected;
+    }
+    createEventDispatcher($acceptSelectedBtn, "cookies:accepted", true);
+    createEventDispatcher($acceptAllBtn, "cookies:accepted-all");
+    createEventDispatcher($declineAllBtn, "cookies:declined-all");
+    
+    });
+</script>

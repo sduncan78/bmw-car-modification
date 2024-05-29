@@ -1,0 +1,75 @@
+---
+import type { Props } from "astro";
+import { PAGE_LA_FIN_DE_VOTRE_CONTRAT, PAGE_VOTRE_DECISION_DE_FIN_DE_CONTRAT } from "../../../contracts";
+import Page from "../../../layouts/Page.astro";
+import headerBackground from "../../../assets/images/fin_de_contrat_background.jpg";
+import headerBackgroundMobile from "../../../assets/images/fin_de_contrat_background_mobile.jpg";
+import PageHeader from "../../../components/PageHeader.astro";
+import AdvantagesList from "../../../components/pages/EndOfContract/AdvantagesList";
+import type { ContractInfo } from "../../../typings";
+import Calendar from "../../../components/Calendar.astro";
+import { resolveStaticPathsForPage } from "../../../utils";
+import Section from "../../../components/Section.astro";
+import Paragraph from "../../../components/Paragraph.astro";
+import { Picture } from "@astrojs/image/components";
+import finContratLLDImg from "../../../assets/images/fin_contrat_lld.jpg";
+
+export const getStaticPaths = () => resolveStaticPathsForPage(PAGE_VOTRE_DECISION_DE_FIN_DE_CONTRAT);
+
+interface AvantagesProps extends Props {
+    contract: ContractInfo
+}
+
+const { contract } = Astro.props as AvantagesProps;
+
+---
+
+<Page title="Votre décision de fin de contrat" contract={contract} page={PAGE_VOTRE_DECISION_DE_FIN_DE_CONTRAT}>
+    <PageHeader
+        slot="header"
+        contract={contract}
+        currentUrl={`/contrat/${contract.path}/votre-decision-de-fin-de-contrat`}
+        imageSrc={headerBackground}
+        mobileImageSrc={headerBackgroundMobile}
+        imageAlt="Votre décision de fin de contrat"
+        title={contract.cosyName}
+        subTitle="Votre décision de fin de contrat"
+        menuUrl={`/contrat/${contract.path}`}
+    >
+        <Calendar slot="icon" class="w-8 h-auto" />
+    </PageHeader>
+    <Section noBorder>
+        <div class="flex flex-col md:flex-row items-stretch space-y-8 md:space-x-8 md:space-y-0">
+            <div class="flex-1 flex flex-col">
+                <Paragraph last>
+                    <span class="font-bold">A la fin de votre contrat, 2 options s’offrent à vous :</span><br>
+                    1. Restituer votre BMW chez votre concessionnaire.<br>
+                    2. Conserver votre BMW en réglant l’option d’achat.
+                    <br><br>
+                    Quelle que soit votre décision, vous pouvez renouveler votre véhicule avec BMW Financial Services.*
+                    <br><br>
+                    Dans tous les cas, vous devez faire votre choix au minimum 1 mois avant la date de fin de votre
+                    contrat. Pour cela écrivez-nous par email à contact-finance@bmw.fr ou par courrier recommandé, en
+                    précisant votre numéro de contrat et nous vous indiquerons les démarches à suivre.
+                    <br><br>
+                    Si vous êtes un particulier ou un professionnel, vous pouvez également nous donner votre décision de
+                    fin de contrat sur votre espace client en ligne <a class="text-bmw-blue underline underline-offset-2" href="http://www.bmw.fr/myfi" target="_blank">www.BMW.fr/MyFi</a>
+                    <br><br>
+                    Dans les 9 derniers mois de votre contrat, nous vous tiendrons informé par courrier des démarches
+                    à suivre pour gérer la fin de contrat.
+                </Paragraph>
+            </div>
+            <Picture
+                src={finContratLLDImg}
+                fill="cover"
+                alt="fin de contrat LLD"
+                sizes="(min-width: 768px) 33vw, 100vw"
+                widths={[220, 340, 675]}
+                aspectRatio="675:451"
+            />
+        </div>
+    </Section>
+    <p class="lg:px-14 text-sm mt-10">
+        *Un Crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager
+    </p>
+</Page>

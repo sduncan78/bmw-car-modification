@@ -1,0 +1,54 @@
+---
+import CookiesBanner from '../components/CookiesBanner.astro';
+export interface Props {
+	title: string;
+	bodyClass?: string;
+}
+
+const { title, bodyClass = "font-light" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fr" class="text-[12px] md:text-[14px] lg:text-[16px]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="/fonts.css">
+		<link rel="stylesheet" href="/cookies-banner.css">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="black">
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class={`font-bmw font-light w-full h-full overflow-hidden antialiased bg-black ${bodyClass}`}>
+		<CookiesBanner  />
+		<slot />
+	</body>
+</html>
+
+<style>
+	body, html {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+	}
+</style>
+
+<script>
+	window.addEventListener("cookies:accepted", function (ev) {
+		localStorage.setItem("cookies", "ok");
+	});
+
+	window.addEventListener("cookies:declined-all", function (ev) {
+		localStorage.setItem("cookies", "ok");
+	});
+
+	window.addEventListener("cookies:accepted-all", function (ev) {
+		localStorage.setItem("cookies", "ok");
+	});
+</script>

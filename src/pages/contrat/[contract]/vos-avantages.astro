@@ -1,0 +1,51 @@
+---
+import type { Props } from "astro";
+import { contracts, PAGE_VOS_AVANTAGES } from "../../../contracts";
+import Page from "../../../layouts/Page.astro";
+import avantagesBackground from "../../../assets/images/avantages_background.jpg";
+import avantagesBackgroundMobile from "../../../assets/images/avantages_background_mobile.jpg";
+import ThumbsUp from "../../../components/SVG/ThumbsUp.astro";
+import PageHeader from "../../../components/PageHeader.astro";
+import AdvantagesList from "../../../components/pages/Advantages/AdvantagesList";
+import type { ContractInfo } from "../../../typings";
+import { resolveStaticPathsForPage } from "../../../utils";
+
+
+export const getStaticPaths = () => resolveStaticPathsForPage(PAGE_VOS_AVANTAGES)
+
+
+interface AvantagesProps extends Props {
+    contract: ContractInfo
+}
+
+const { contract } = Astro.props as AvantagesProps;
+
+---
+
+<Page title="Les avantages de votre contrat" contract={contract} page={PAGE_VOS_AVANTAGES}>
+    <PageHeader
+        slot="header"
+        contract={contract}
+        currentUrl={`/contrat/${contract.path}/vos-avantages`}
+        imageSrc={avantagesBackground}
+        mobileImageSrc={avantagesBackgroundMobile}
+        imageAlt="Avantages de votre contrat"
+        title={contract.cosyName}
+        subTitle="Les avantages de votre contrat"
+        menuUrl={`/contrat/${contract.path}`}
+    >
+        <ThumbsUp slot="icon" class="w-8 h-auto" />
+    </PageHeader>
+    <div class="lg:px-14">
+        <p class="font-light mb-8">
+            En optant pour un contrat avec BMW Financial Services, vous avez le choix d'une solution sur-mesure et adaptée à vos besoins.
+            <br />Cliquez sur les icônes ci-dessous pour découvrir vos avantages.
+        </p>
+        <AdvantagesList client:visible contract={contract} />
+        { contract.name === "Crédit" && (
+            <p class="text-sm font-light mt-10">
+                * La pause des mensualités ou le report des mensualités entraînent un allongement de la durée du crédit et une augmentation de son coût.
+            </p>
+        )}
+    </div>
+</Page>

@@ -1,0 +1,156 @@
+.CookiesBanner {
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 24px 25px;
+    background-color: white;
+    transform: translateY(100%);
+    font-family: "BMWTypeNextTT", sans-serif;
+    font-weight: bold;
+    transition: transform 0.4s ease-in-out;
+  }
+  .CookiesBanner * {
+    box-sizing: border-box;
+  }
+  .CookiesBanner-show {
+    transform: translateY(0);
+  }
+  .CookiesBanner__title {
+    margin-bottom: 18px;
+    color: #0066b1;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  .CookiesBanner__text {
+    margin-bottom: 16px;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.5em;
+  }
+  .CookiesBanner__details {
+    margin-bottom: 16px;
+    display: none;
+    opacity: 0;
+    transition: opacity 3s;
+    width: 100%;
+    max-width: 600px;
+  }
+  .CookiesBanner__details-show {
+    display: block;
+    opacity: 1;
+  }
+  .CookiesBanner__details_section {
+    margin-bottom: 10px;
+  }
+  .CookiesBanner__details_section:last-child {
+    margin-bottom: 0;
+  }
+  .CookiesBanner__details_section_title {
+    font-size: 12px;
+  }
+  .CookiesBanner__cookie {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+    align-items: center;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+  }
+  .CookiesBanner__cookie__icon_container {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .CookiesBanner__cookie__icon {
+    width: 16px;
+    height: 16px;
+  }
+  .CookiesBanner__cookie__infos {
+    font-size: 12px;
+    flex: 1;
+    margin-right: 20px;
+  }
+  .CookiesBanner__cookie__name {
+    margin-bottom: 8px;
+  }
+  .CookiesBanner__cookie__desc {
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+  }
+  .CookiesBanner__cookie:hover {
+    border-color: #0066b1;
+  }
+  .CookiesBanner__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  @media screen and (min-width: 600px) {
+    .CookiesBanner__actions {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  .CookiesBanner__know_more_link {
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+  }
+  @media screen and (min-width: 600px) {
+    .CookiesBanner__know_more_link {
+      margin-bottom: 0;
+    }
+  }
+  .CookiesBanner__button {
+    padding: 10px 15px;
+    width: 100%;
+    background-color: white;
+    border: solid 2px #0066b1;
+    cursor: pointer;
+    margin-top: 10px;
+    color: #0066b1;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .CookiesBanner__button:first-child {
+    margin-top: 0;
+  }
+  .CookiesBanner__button:hover {
+    background-color: #0066b1;
+    color: white;
+  }
+  .CookiesBanner__button-hide {
+    display: none;
+  }
+  @media screen and (min-width: 600px) {
+    .CookiesBanner__button {
+      margin-left: 20px;
+      width: auto;
+    }
+    .CookiesBanner__button:first-child {
+      margin-left: 0;
+    }
+  }

@@ -1,0 +1,17 @@
+---
+import Arobase from "./Arobase.astro";
+
+interface MailButtonProps {
+    href: string
+}
+
+const { href = "#" } = Astro.props as MailButtonProps;
+
+---
+<div class="w-full sm:w-auto flex justify-center items-center">
+    <a href={href} class="w-full sm:w-auto text-center text-lg bg-bmw-blue mx-auto px-8 py-4 text-white inline-flex flex-row justify-center items-center transition-transform transform-gpu hover:underline underline-offset-4 hover:scale-105">
+        <span class="font-bold">
+            <slot />
+        </span>
+    </a>
+</div>
