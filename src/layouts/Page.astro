@@ -37,10 +37,10 @@ if (currentPageIndex < contract.pages.length) {
                     <slot />
                 </div>
                 { nextPage && (
-                    <div class="w-full py-6 flex justify-end items-center">
-                        <a href={`/contrat/${contract.path}${nextPage.url}`} class="py-4 pl-6 pr-4 w-auto bg-[#1d8ef2] uppercase text-white inline-flex flex-row items-center space-x-4  hover:bg-bmw-blue transition-all">
-                            <span class="whitespace-nowrap">{ nextPage.name }</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24.734 14.44" class="transform-gpu -rotate-90 w-6 h-auto">
+                    <div class="w-full pb-3 md:py-3 pr-2 md:pr-8 lg:pr-20 flex justify-end items-center">
+                        <a href={`/contrat/${contract.path}${nextPage.url}`} class="py-4 pl-6 pr-4 w-auto text-bmw-blue font-semibold inline-flex flex-row items-center space-x-4  hover:underline transition-all">
+                            <span class="whitespace-nowrap text-lg">{ nextPage.name }</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24.734 14.44" class="transform-gpu -rotate-90 w-5 mt-0.5 h-auto">
                                 <g id="Fleche" transform="translate(24.734 14.44) rotate(180)">
                                     <path id="Tracé_48" data-name="Tracé 48" d="M12.367,0,11.129,1.183,0,11.866,2.476,14.44l9.891-9.5,9.891,9.5,2.476-2.574L13.605,1.183Z" transform="translate(0 0)" fill="currentColor"/>
                                 </g>
